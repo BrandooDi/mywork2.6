@@ -19,14 +19,14 @@ if __name__ == '__main__':
 
         elif command == 'add':
             # Запросить данные о переводе.
-            raspl = input("Расчётный счёт получателя: ")
             raspol = input("Расчётный счёт платильщика: ")
+            raspl = input("Расчётный счёт получателя: ")
             sum = input("Перечисляемая сумма в руб: ")
 
             # Создать словарь
             plat = {
-                'raspl': raspl,
                 'raspol': raspol,
+                'raspl': raspl,
                 'sum': sum,
             }
 
@@ -34,7 +34,7 @@ if __name__ == '__main__':
             plats.append(plat)
             # Отсортировать список в случае необходимости.
             if len(plats) > 1:
-                plats.sort(key=lambda item: item.get('raspl', ''))
+                plats.sort(key=lambda item: item.get('raspol', ''))
 
         elif command == 'list':
             # Заголовок таблицы.
@@ -48,8 +48,8 @@ if __name__ == '__main__':
             print(
                 '| {:^4} | {:^30} | {:^35} | {:^45} |'.format(
                     "No",
-                    "Расчётный счет получателя",
-                    "Расчётный счёт платильщика",
+                    "Расчётный счет платильщика",
+                    "Расчётный счёт получателя",
                     "Перечисляемая сумма в руб"
                 )
             )
@@ -60,9 +60,9 @@ if __name__ == '__main__':
                 print(
                     '| {:>4} | {:<30} | {:<35} | {:>45} |'.format(
                         idx,
-                        plat.get('raspl', ''),
                         plat.get('raspol', ''),
-                        plat.get('sum', '')
+                        plat.get('raspl', ''),
+                        plat.get('sum', '',)
                     )
                 )
 
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
         elif command.startswith('select '):
 
-            # Разбить команду на части для выделения пункта назначения.
+            # Разбить команду на части .
             part = command.split(' ', maxsplit=1)
             com = part[1]
 
@@ -78,21 +78,21 @@ if __name__ == '__main__':
             count = 0
             # Проверить сведения счетов из списка.
             for plat in plats:
-                if com == plane.get('typ', ''):
+                if com == plat.get('sum', ''):
                     count += 1
                     print(
-                        '{:>4}. Расчётный счёт платильщика: {}; Перечисляемая сумма: {}'.format(count, plane.get('raspol', ''),
+                        '{:>4}. Расчётный счёт платильщика: {}; Перечисляемая сумма: {}'.format(count, plat.get('raspol', ''),
                                                              plat.get('sum', ''))
                     )
 
-            # Если счетчик равен 0, то самолеты не найдены.
+            # Если счетчик равен 0, то сумма и платильщик не найдены.
             if count == 0:
-                print("Заданный тип не обнаружен.")
+                print("Заданная сумма не обнаружена.")
 
         elif command == 'help':
             # Вывести справку о работе с программой.
             print("Список команд:\n")
-            print("add - Расчётный счёт;")
+            print("add - добавить счёт;")
             print("list - вывести список счётов;")
             print("select <тип> - запросить счета данного типа;")
             print("help - отобразить справку;")
