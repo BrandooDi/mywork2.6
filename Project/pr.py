@@ -5,7 +5,7 @@ import sys
 from datetime import date
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Список работников.
     workers = []
 
@@ -15,10 +15,10 @@ if __name__ == '__main__':
         command = input(">>> ").lower()
 
         # Выполнить действие в соответствие с командой.
-        if command == 'exit':
+        if command == "exit":
             break
 
-        elif command == 'add':
+        elif command == "add":
             # Запросить данные о работнике.
             name = input("Фамилия и инициалы? ")
             post = input("Должность? ")
@@ -26,32 +26,24 @@ if __name__ == '__main__':
 
             # Создать словарь.
             worker = {
-                'name': name,
-                'post': post,
-                'year': year,
+                "name": name,
+                "post": post,
+                "year": year,
             }
 
             # Добавить словарь в список.
             workers.append(worker)
             # Отсортировать список в случае необходимости.
             if len(workers) > 1:
-                workers.sort(key=lambda item: item.get('name', ''))
+                workers.sort(key=lambda item: item.get("name", ""))
 
-        elif command == 'list':
+        elif command == "list":
             # Заголовок таблицы.
-            line = '+-{}-+-{}-+-{}-+-{}-+'.format(
-                '-' * 4,
-                '-' * 30,
-                '-' * 20,
-                '-' * 8
-            )
+            line = "+-{}-+-{}-+-{}-+-{}-+".format("-" * 4, "-" * 30, "-" * 20, "-" * 8)
             print(line)
             print(
-                '| {:^4} | {:^30} | {:^20} | {:^8} |'.format(
-                    "No",
-                    "Ф.И.О.",
-                    "Должность",
-                    "Год"
+                "| {:^4} | {:^30} | {:^20} | {:^8} |".format(
+                    "No", "Ф.И.О.", "Должность", "Год"
                 )
             )
             print(line)
@@ -59,22 +51,22 @@ if __name__ == '__main__':
             # Вывести данные о всех сотрудниках.
             for idx, worker in enumerate(workers, 1):
                 print(
-                    '| {:>4} | {:<30} | {:<20} | {:>8} |'.format(
+                    "| {:>4} | {:<30} | {:<20} | {:>8} |".format(
                         idx,
-                        worker.get('name', ''),
-                        worker.get('post', ''),
-                        worker.get('year', 0)
+                        worker.get("name", ""),
+                        worker.get("post", ""),
+                        worker.get("year", 0),
                     )
                 )
 
             print(line)
 
-        elif command.startswith('select '):
+        elif command.startswith("select "):
             # Получить текущую дату.
             today = date.today()
 
             # Разбить команду на части для выделения номера года.
-            parts = command.split(' ', maxsplit=1)
+            parts = command.split(" ", maxsplit=1)
             # Получить требуемый стаж.
             period = int(parts[1])
 
@@ -82,17 +74,15 @@ if __name__ == '__main__':
             count = 0
             # Проверить сведения работников из списка.
             for worker in workers:
-                if today.year - worker.get('year', today.year) >= period:
+                if today.year - worker.get("year", today.year) >= period:
                     count += 1
-                    print(
-                        '{:>4}: {}'.format(count, worker.get('name', ''))
-                    )
+                    print("{:>4}: {}".format(count, worker.get("name", "")))
 
             # Если счетчик равен 0, то работники не найдены.
             if count == 0:
                 print("Работники с заданным стажем не найдены.")
 
-        elif command == 'help':
+        elif command == "help":
             # Вывести справку о работе с программой.
             print("Список команд:\n")
             print("add - добавить работника;")
