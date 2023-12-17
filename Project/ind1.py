@@ -39,7 +39,10 @@ if __name__ == "__main__":
         elif command == "list":
             # Заголовок таблицы.
             line = "+-{}-+-{}-+-{}-+-{}-+".format(
-                "-" * 4, "-" * 30, "-" * 35, "-" * 45,
+                "-" * 4,
+                "-" * 30,
+                "-" * 35,
+                "-" * 45,
             )
             print(line)
             print(
@@ -59,14 +62,16 @@ if __name__ == "__main__":
                         idx,
                         plat.get("raspol", ""),
                         plat.get("raspl", ""),
-                        plat.get("sum", "",),
+                        plat.get(
+                            "sum",
+                            "",
+                        ),
                     )
                 )
 
             print(line)
 
         elif command.startswith("select "):
-
             # Разбить команду на части .
             part = command.split(" ", maxsplit=1)
             com = part[1]
